@@ -40,8 +40,7 @@ public class Gun {
     if(this.numberOfCartridges > 0) {
       this.numberOfCartridges -= 1;
       System.out.println("Бах!");
-    }
-    else {
+    } else {
       System.out.println("Клац!");
     }
   }
