@@ -1,109 +1,73 @@
-import static java.lang.Math.abs;
-
-public class Gun {
-    // Поля
-    private int numberOfCartridges;
+public class Gun extends Weapon {
     private final int maxOfCartridges;
 
-
-    // Геттеры и сеттеры
-    public int getNumberOfCartridges() {
-        System.out.print("Кол-во заряженных патрон в пистолете: ");
-        return this.numberOfCartridges;
-    }
-
-    public int getMaxOfCartridges() {
-        System.out.print("Максимально кол-во патронов, которых вмещает пистолет: ");
-        return this.maxOfCartridges;
-    }
-
-    public void setNumberOfCartridges(int numberOfCartridges) {
-        if(numberOfCartridges < 0) {
-            System.out.println("Количество патрон не может быть отрицательным! Установлено значение по умолчанию - 5! ");
-            this.numberOfCartridges = 5;
-
-        } else {
-            this.numberOfCartridges = numberOfCartridges;
-        }
-    }
-
-    // Конструкторы
     public Gun() {
-        this.numberOfCartridges = 5;
+        super(5);
         this.maxOfCartridges = 5;
     }
+
     public Gun(int numberOfCartridges) {
-        setNumberOfCartridges(numberOfCartridges);
-        this.maxOfCartridges = this.numberOfCartridges; // Используем уже установленное значение
+        super(numberOfCartridges);
+        this.maxOfCartridges = numberOfCartridges;
     }
 
-
-    public  Gun(int numberOfCartridges, int maxOfCartridges) {
-        setNumberOfCartridges(numberOfCartridges);
-        if(maxOfCartridges < numberOfCartridges) {
-            System.out.println("Обоима не может быть меньше кол-ва патрон в ней! Установлено значение кол-ва патрон!");
+    public Gun(int numberOfCartridges, int maxOfCartridges) {
+        super(numberOfCartridges);
+        if (maxOfCartridges < numberOfCartridges) {
+            System.out.println("Обойма не может быть меньше кол-ва патрон в ней! Установлено значение кол-ва патрон!");
             this.maxOfCartridges = numberOfCartridges;
         } else {
             this.maxOfCartridges = maxOfCartridges;
         }
     }
 
-    // Метод to_string
+    // Реализация абстрактного метода shoot
     @Override
-    public String toString() {
-        return "Вы создали пистолет, в котором обоима состоит из - " + this.numberOfCartridges
-                + " и максимальной обоимой - " + this.maxOfCartridges;
-    }
-
-    // Метод для выстрела
-    public void fire() {
-
-        if(this.numberOfCartridges > 0) {
-            this.numberOfCartridges -= 1;
+    public void shoot() {
+        if (ammo() > 0) {
+            getAmmo(); // Уменьшает ammo на 1
             System.out.println("Бах!");
         } else {
             System.out.println("Клац!");
         }
     }
 
-    // Если нужен иммено отдельный метод с выводом макс. патрон, то ->
-    public void outMaxOfCartridges() {
-        System.out.print("Максимально кол-во патронов, которых вмещает пистолет: ");
-        System.out.println(this.maxOfCartridges);
+    // Геттеры
+    public int getNumberOfCartridges() {
+        return ammo();
     }
 
-    // Если нужен иммено отдельный метод с выводом заряженных патрон, то ->
-    public void outNumberOfCartridges() {
-        System.out.print("Сейчас заряженно патрон: ");
-        System.out.println(this.numberOfCartridges);
+    public int getMaxOfCartridges() {
+        return this.maxOfCartridges;
     }
 
-
-    // Метод для перезарядки(Исключение можно кидать через try, но catch не выполнится не логично)
+    // Метод для перезарядки
     public int reload(int numberOfCartridges) {
-        System.out.println("Перезарежаем пистолет...");
-        if(numberOfCartridges < 0) {
+        System.out.println("Перезаряжаем пистолет...");
+        if (numberOfCartridges < 0) {
             throw new IllegalArgumentException("Количество патронов не может быть отрицательным!");
         }
-        int res = 0;
-        if(this.numberOfCartridges + numberOfCartridges <= this.maxOfCartridges) {
-            this.numberOfCartridges +=numberOfCartridges;
-        } else {
-            res = (this.numberOfCartridges + numberOfCartridges) - this.maxOfCartridges;
-            this.numberOfCartridges = this.maxOfCartridges;
-            System.out.println("Добавлено патронов: " + (numberOfCartridges - res));
-            System.out.println("Кол-во лишних патрон: "  + res);
-        }
-        System.out.println("После перезарядки: " + this.numberOfCartridges);
 
+        int currentAmmo = ammo();
+        int res = 0;
+
+        if (currentAmmo + numberOfCartridges <= this.maxOfCartridges) {
+            load(currentAmmo + numberOfCartridges);
+        } else {
+            res = (currentAmmo + numberOfCartridges) - this.maxOfCartridges;
+            load(this.maxOfCartridges);
+            System.out.println("Добавлено патронов: " + (numberOfCartridges - res));
+            System.out.println("Кол-во лишних патрон: " + res);
+        }
+        System.out.println("После перезарядки: " + ammo());
         return res;
     }
 
     // Метод для проверки заряженности
-    private boolean isCharged() {
-        return this.numberOfCartridges > 0;
+    public boolean isCharged() {
+        return ammo() > 0;
     }
-    // Метод для того, чтобы узнать заряжен или нет
+
     public void chargedOrNotCharged() {
         if (isCharged()) {
             System.out.println("Пистолет заряжен!");
@@ -114,11 +78,30 @@ public class Gun {
 
     // Метод для обнуления патронов
     public int unLoad() {
-        int res = this.numberOfCartridges;
+        int res = ammo();
+        load(0);
         System.out.println("Вы разрядили пистолет! Возвращено патронов: " + res);
-        this.numberOfCartridges = 0;
         return res;
     }
 
+    // toString
+    @Override
+    public String toString() {
+        return "Вы создали пистолет, в котором обойма состоит из - " + ammo() +
+                " и максимальной обоймой - " + this.maxOfCartridges;
+    }
 
+    // Дополнительные методы для вывода информации
+    public void outMaxOfCartridges() {
+        System.out.println("Максимально кол-во патронов, которых вмещает пистолет: " + this.maxOfCartridges);
+    }
+
+    public void outNumberOfCartridges() {
+        System.out.println("Сейчас заряженно патрон: " + ammo());
+    }
+
+    // Сохраняем метод fire
+    public void fire() {
+        shoot();
+    }
 }
