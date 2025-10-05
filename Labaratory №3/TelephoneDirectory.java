@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TelephoneDirectory {
   // Поля
@@ -84,7 +83,6 @@ public class TelephoneDirectory {
     }
   }
 
-  // Узнаем текущее кол-во контактов
   // Узнаем текущее количество контактов
   public void sizeMap() {
     if (this.nameTelephone.isEmpty()) {
@@ -94,8 +92,83 @@ public class TelephoneDirectory {
     }
   }
 
+  // Полчучаем пары через массив
+  public String[][] pairsArray() {
+    int i = 0;
+    String[][] pairs = new String[this.telephoneName.size()][2];
+    if(this.telephoneName.isEmpty()) {
+      System.out.println("Список пуст!");
+    } else {
+      for(Map.Entry<String,String> entry : this.telephoneName.entrySet()) {
+        pairs[i][0] = entry.getKey();
+        pairs[i][1] = entry.getValue();
+        i++;
+      }
+    }
+    System.out.println("Список всех пар: ");
+    for (int i1 = 0; i1 < pairs.length; i1++) {
+      for (int j = 0; j < pairs[i1].length; j++) {
+        System.out.print(pairs[i1][j] + " ");
+      }
+      System.out.println();
+    }
+    return pairs;
+  }
 
+  // Получаем телефоны через массив
+  public String[] telephoneArray() {
+    int i =0;
+    String[] pairs = new String[this.telephoneName.size()];
+    for(Map.Entry<String,String> entry : this.telephoneName.entrySet()) {
+      pairs[i] = entry.getKey();
+      i++;
+    }
+    System.out.println("Список телефонов: ");
+    for (int j = 0; j < this.telephoneName.size(); j++) {
+      System.out.println(pairs[j]);
+    }
+    System.out.println();
+    return pairs;
+  }
 
+  // Получаем именна через массив
+  public String[] nameArray() {
+    int i =0;
+    String[] pairs = new String[this.telephoneName.size()];
+    for(Map.Entry<String,String> entry : this.telephoneName.entrySet()) {
+      pairs[i] = entry.getValue();
+      i++;
+    }
+    System.out.println("Список имен: ");
+    for (int j = 0; j < this.telephoneName.size(); j++) {
+      System.out.println(pairs[j]);
+    }
+    System.out.println();
+    return pairs;
+  }
+
+  // Массив имен, начинающихся с указанной строки
+  public String[] namesArrayStartingWith(String prefix) {
+    List<String> matchingNames = new ArrayList<>();
+
+    for (String name : nameTelephone.keySet()) {
+      if (name.toLowerCase().startsWith(prefix.toLowerCase())) {
+        matchingNames.add(name);
+      }
+    }
+    String[] result = matchingNames.toArray(new String[0]);
+
+    if (result.length == 0) {
+      System.out.println("Имена, начинающиеся с '" + prefix + "' не найдены");
+    } else {
+      System.out.println("Найдены имена, начинающиеся с '" + prefix + "':");
+      for (int i = 0; i < result.length; i++) {
+        System.out.println((i + 1) + ". " + result[i]);
+      }
+    }
+
+    return result;
+  }
 
 
 }
