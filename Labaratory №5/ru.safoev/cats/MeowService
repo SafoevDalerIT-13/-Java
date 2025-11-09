@@ -1,7 +1,0 @@
-package ru.safoev.cats;
-
-import java.util.List;
-
-public interface MeowService {
-  void processMeowingObjects(List<Cat> meowables);
-}
