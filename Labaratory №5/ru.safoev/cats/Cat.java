@@ -2,6 +2,10 @@ package ru.safoev.cats;
 
 public class Cat implements Meowable {
   private String name;
+  
+  public Cat() {
+    this.name = null;
+  }
 
   public String getName() {
     return name;
