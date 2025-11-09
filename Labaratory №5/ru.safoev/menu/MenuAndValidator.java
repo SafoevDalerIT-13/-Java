@@ -1,13 +1,21 @@
 package ru.safoev.menu;
 
+import ru.safoev.cats.Cat;
+import ru.safoev.cats.Funs;
+import ru.safoev.cats.MeowCounter;
 import ru.safoev.file.FileRead;
 import ru.safoev.fractions.Fraction;
 import ru.safoev.list.RemoveList;
 import ru.safoev.map.PeopleMap;
 import ru.safoev.queue.QueueReverse;
+import ru.safoev.stream.PersonProcessor;
+import ru.safoev.stream.Point;
+import ru.safoev.stream.Polyline;
+import ru.safoev.stream.PolylineStream;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MenuAndValidator {
 
@@ -53,11 +61,13 @@ public class MenuAndValidator {
       System.out.println("\n=== РУЧНОЙ ВВОД ===");
       System.out.println("Выберите задание (вы будете вводить данные):");
       System.out.println("1. Дроби с кэшированием");
-      System.out.println("2. Коты и мяуканье");
-      System.out.println("3. Удаление элементов из списка");
+      System.out.println("2. Удаление элементов из списка");
+      System.out.println("3. Коты и мяуканье");
       System.out.println("4. Генерация логинов учеников");
       System.out.println("5. Анализ файла - звонкие согласные");
       System.out.println("6. Реверс очереди");
+      System.out.println("7.1. Stream Точек");
+      System.out.println("7.2. Stream Людей из файла");
       System.out.println("0. Назад к выбору способа ввода");
       System.out.print("Ваш выбор задания: ");
 
@@ -85,8 +95,10 @@ public class MenuAndValidator {
             manualInput6();
             break;
           case 7:
-            manualInput7();
+            manualInput71();
             break;
+          case 8:
+            manualInput72();
           case 0:
             return menu();
           default:
@@ -111,6 +123,8 @@ public class MenuAndValidator {
       System.out.println("4. Генерация логинов учеников");
       System.out.println("5. Анализ файла - звонкие согласные");
       System.out.println("6. Реверс очереди");
+      System.out.println("7.1. Stream Точек");
+      System.out.println("7.2. Stream Людей из файла");
       System.out.println("0. Назад к выбору способа ввода");
       System.out.print("Ваш выбор задания: ");
 
@@ -138,7 +152,10 @@ public class MenuAndValidator {
             autoInput6();
             break;
           case 7:
-            autoInput7();
+            autoInput71();
+            break;
+          case 8:
+            autoInput72();
             break;
           case 0:
             return menu();
@@ -155,7 +172,6 @@ public class MenuAndValidator {
 
   // Методы для ручного ввода
   private void manualInput1() {
-    Scanner scanner = new Scanner(System.in);
     System.out.println("=== Ручной ввод данных для класса Fraction ===");
 
     try {
@@ -251,11 +267,46 @@ public class MenuAndValidator {
   }
 
   private void manualInput2() {
-    // Дошпилить
+    System.out.println("Количество мяуканий.\n" +
+            "Необходимо воспользоваться классом Кот и методом принимающим всех мяукающих из задачи 2.5.4.\n" +
+            "Необходимо таким образом передать кота в указанный метод, что бы после окончания его работы\n" +
+            "узнать сколько раз мяукал кот за время его работы. На рисунке показан пример работы. Перед вызовом\n" +
+            "метода создаем кота, отправляем ссылку на кота в метод, после окончания его работы выводим\n" +
+            "количество мяуканий на экран. Кота изменять нельзя.\n" +
+            "Если раннее в вашем варианте не было Кота, то создайте\n" +
+            "1. сущность Кот, которая описывается следующим образом:\n" +
+            "• Имеет Имя (строка)\n" +
+            "• Для создания необходимо указать имя кота.\n" +
+            "• Может быть приведен к текстовой форме вида: “кот: Имя”\n" +
+            "• Может помяукать, что приводит к выводу на экран следующего текста: “Имя: мяу!”,\n" +
+            "вызвать мяуканье можно без параметров.\n" +
+            "2. интерфейс Мяуканье: разработайте метод, который принимает набор объектов способных\n" +
+            "мяукать и вызывает мяуканье у каждого объекта. Мяукающие объекты должны иметь метод со\n" +
+            "следующей сигнатурой:\n" +
+            "public void meow();");
+    // Запрос имени кота у пользователя
+    System.out.print("Введите имя кота: ");
+    String catName = scanner.nextLine().trim();
+
+    // Создаем кота с введенным именем
+    Cat cat = new Cat(catName);
+    System.out.println("Создан: " + cat);
+
+    // Создаем счетчик мяуканий
+    MeowCounter counter = new MeowCounter(cat);
+    System.out.println("Счетчик мяуканий создан и готов к работе.");
+
+    System.out.println("\nВызываем метод Funs.meowsCare()...");
+
+    // Вызываем метод, который будет вызывать мяуканье
+    Funs.meowsCare(counter);
+
+    // Выводим результат
+    System.out.println("\nРезультат:");
+    System.out.println("кот мяукал " + counter.getMeowCount() + " раз");
   }
 
   private void manualInput3() {
-    Scanner scanner = new Scanner(System.in);
     RemoveList<String> removeList = new RemoveList<>();
 
     System.out.print("Сколько элементов в список L? ");
@@ -287,7 +338,6 @@ public class MenuAndValidator {
   }
 
   private void manualInput4() {
-    Scanner scanner = new Scanner(System.in);
     PeopleMap peopleMap = new PeopleMap();
 
     System.out.print("Введите количество учеников: ");
@@ -310,7 +360,6 @@ public class MenuAndValidator {
   }
 
   private void manualInput5() {
-    Scanner scanner = new Scanner(System.in);
     FileRead fileRead = new FileRead();
 
     System.out.print("Введите название файла: ");
@@ -328,7 +377,7 @@ public class MenuAndValidator {
 
 
   private void manualInput6() {
-    Scanner scanner = new Scanner(System.in);
+
     QueueReverse<String> queueReverse = new QueueReverse<>();
 
     System.out.print("Сколько элементов добавить в очередь L1? ");
@@ -347,8 +396,86 @@ public class MenuAndValidator {
     scanner.close();
   }
 
-  private void manualInput7() {
-    // Дошпилить
+  private void manualInput71() {
+    System.out.println("Необходимо написать стрим:\n" +
+            "Дан набор объектов типа Point, необходимо взять все Point в разных координатах, убрать с\n" +
+            "одинаковыми X,Y, отсортировать по X, отрицательные Y сделать положительными и собрать это\n" +
+            "все в ломаную (объект типа Polyline)\n" +
+            "Если раннее в вашем варианте не было задание с классом Point и Polyline, то написать их:\n" +
+            "1. класс Point:\n" +
+            "• Координата Х: число.\n" +
+            "• Координата Y: число.\n" +
+            "• Может возвращать текстовое представление вида “{X;Y}”.\n" +
+            "2. класс Line (Линия), расположенная на двумерной плоскости, которая описывается:\n" +
+            "• Координата начала: Точка\n" +
+            "• Координата конца: Точка\n" +
+            "• Может возвращать текстовое представление вида “Линия от {X1;Y1} до {X2;Y2}”\n" +
+            "3. класс Polyline (Ломаная), которая будет представлять собой ломаную линию. Ломаная\n" +
+            "линия представляет собой набор следующих характеристик:\n" +
+            "• Имеет массив Точек, через которые линия проходит.\n" +
+            "• Может быть приведена к строковой форме вида “Линия [Т1,T2,…,TN]”, где TN – это\n" +
+            "результат приведения к строке Точки с номером N");
+
+    // Ручной ввод точек
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("\n=== Ручной ввод точек ===");
+    System.out.print("Введите количество точек: ");
+    int count = scanner.nextInt();
+
+    Point[] points = new Point[count];
+    for (int i = 0; i < count; i++) {
+      System.out.println("Точка " + (i + 1) + ":");
+      System.out.print("  X: ");
+      double x = scanner.nextDouble();
+      System.out.print("  Y: ");
+      double y = scanner.nextDouble();
+      points[i] = new Point(x, y);
+    }
+
+    // Обрабатываем точки через стрим
+    Polyline result = PolylineStream.processPointsDetailed(points);
+
+    // Выводим результат
+    System.out.println("\nИсходные точки: " + Arrays.toString(points));
+    System.out.println("Результирующая ломаная: " + result);
+  }
+
+  private void manualInput72() {
+    System.out.println("Дан текстовый файл со строками, содержащими имя человека и его номер в следующей форме:\n" +
+            "Вася:5\n" +
+            "Петя:3\n" +
+            "Аня:5\n" +
+            "Номера людей могут повторяться. У каких-то людей может не быть номера.\n" +
+            "Необходимо написать стрим выполняющую следующее:\n" +
+            "читаются все люди из файла, все имена приводится к нижнему регистру, но с первой буквой в\n" +
+            "верхнем регистре, убираем из перечня всех людей без номеров, а имена оставшихся группируются\n" +
+            "по их номеру:\n" +
+            "[5:[Вася, Аня], 3:[Петя]]");
+
+    // Ручной ввод имени файла
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("\nВведите имя файла: ");
+    String filename = scanner.nextLine();
+
+    try {
+      Map<Integer, List<String>> result = PersonProcessor.processFile(filename);
+
+      // Выводим результат
+      System.out.println("Группировка по номерам:");
+      result.forEach((number, names) -> {
+        System.out.println(number + ": " + names);
+      });
+
+      // Или в формате как в задании:
+      System.out.println("\nВ формате задания:");
+      String formatted = result.entrySet().stream()
+              .map(entry -> entry.getKey() + ":[" + String.join(", ", entry.getValue()) + "]")
+              .collect(Collectors.joining(", "));
+      System.out.println("[" + formatted + "]");
+
+    } catch (IOException e) {
+      System.out.println("Ошибка чтения файла: " + e.getMessage());
+    }
   }
 
 
@@ -418,7 +545,29 @@ public class MenuAndValidator {
   }
 
   private void autoInput2() {
-    // Дошпилить
+    System.out.println("Количество мяуканий.\n" +
+            "Необходимо воспользоваться классом Кот и методом принимающим всех мяукающих из задачи 2.5.4.\n" +
+            "Необходимо таким образом передать кота в указанный метод, что бы после окончания его работы\n" +
+            "узнать сколько раз мяукал кот за время его работы. На рисунке показан пример работы. Перед вызовом\n" +
+            "метода создаем кота, отправляем ссылку на кота в метод, после окончания его работы выводим\n" +
+            "количество мяуканий на экран. Кота изменять нельзя.\n" +
+            "Если раннее в вашем варианте не было Кота, то создайте\n" +
+            "1. сущность Кот, которая описывается следующим образом:\n" +
+            "• Имеет Имя (строка)\n" +
+            "• Для создания необходимо указать имя кота.\n" +
+            "• Может быть приведен к текстовой форме вида: “кот: Имя”\n" +
+            "• Может помяукать, что приводит к выводу на экран следующего текста: “Имя: мяу!”,\n" +
+            "вызвать мяуканье можно без параметров.\n" +
+            "2. интерфейс Мяуканье: разработайте метод, который принимает набор объектов способных\n" +
+            "мяукать и вызывает мяуканье у каждого объекта. Мяукающие объекты должны иметь метод со\n" +
+            "следующей сигнатурой:\n" +
+            "public void meow();");
+    Cat cat = new Cat("Мурзик");
+    MeowCounter counter = new MeowCounter(cat);
+
+    Funs.meowsCare(counter);
+
+    System.out.println("кот мяукал " + counter.getMeowCount() + " раз");
   }
 
   private void autoInput3() {
@@ -538,7 +687,73 @@ public class MenuAndValidator {
     queueReverse.reverseQueueMethod();
   }
 
-  private void autoInput7() {
-   // Дошпилить
+  private void autoInput71() {
+    System.out.println("Необходимо написать стрим:\n" +
+            "Дан набор объектов типа Point, необходимо взять все Point в разных координатах, убрать с\n" +
+            "одинаковыми X,Y, отсортировать по X, отрицательные Y сделать положительными и собрать это\n" +
+            "все в ломаную (объект типа Polyline)\n" +
+            "Если раннее в вашем варианте не было задание с классом Point и Polyline, то написать их:\n" +
+            "1. класс Point:\n" +
+            "• Координата Х: число.\n" +
+            "• Координата Y: число.\n" +
+            "• Может возвращать текстовое представление вида “{X;Y}”.\n" +
+            "2. класс Line (Линия), расположенная на двумерной плоскости, которая описывается:\n" +
+            "• Координата начала: Точка\n" +
+            "• Координата конца: Точка\n" +
+            "• Может возвращать текстовое представление вида “Линия от {X1;Y1} до {X2;Y2}”\n" +
+            "3. класс Polyline (Ломаная), которая будет представлять собой ломаную линию. Ломаная\n" +
+            "линия представляет собой набор следующих характеристик:\n" +
+            "• Имеет массив Точек, через которые линия проходит.\n" +
+            "• Может быть приведена к строковой форме вида “Линия [Т1,T2,…,TN]”, где TN – это\n" +
+            "результат приведения к строке Точки с номером N");
+    Point[] points = {
+            new Point(3, 4),
+            new Point(1, 2),
+            new Point(3, 4),
+            new Point(5, -6),
+            new Point(2, -3),
+            new Point(1, 2),
+            null,
+            new Point(4, 7)
+    };
+
+    // Обрабатываем точки через стрим
+    Polyline result = PolylineStream.processPointsDetailed(points);
+
+    // Выводим результат
+    System.out.println("Исходные точки: " + Arrays.toString(points));
+    System.out.println("Результирующая ломаная: " + result);
+  }
+
+  private void autoInput72() {
+    System.out.println("Дан текстовый файл со строками, содержащими имя человека и его номер в следующей форме:\n" +
+            "Вася:5\n" +
+            "Петя:3\n" +
+            "Аня:5\n" +
+            "Номера людей могут повторяться. У каких-то людей может не быть номера.\n" +
+            "Необходимо написать стрим выполняющую следующее:\n" +
+            "читаются все люди из файла, все имена приводится к нижнему регистру, но с первой буквой в\n" +
+            "верхнем регистре, убираем из перечня всех людей без номеров, а имена оставшихся группируются\n" +
+            "по их номеру:\n" +
+            "[5:[Вася, Аня], 3:[Петя]]");
+    try {
+      Map<Integer, List<String>> result = PersonProcessor.processFile("name.txt");
+
+      // Выводим результат
+      System.out.println("Группировка по номерам:");
+      result.forEach((number, names) -> {
+        System.out.println(number + ": " + names);
+      });
+
+      // Или в формате как в задании:
+      System.out.println("\nВ формате задания:");
+      String formatted = result.entrySet().stream()
+              .map(entry -> entry.getKey() + ":[" + String.join(", ", entry.getValue()) + "]")
+              .collect(Collectors.joining(", "));
+      System.out.println("[" + formatted + "]");
+
+    } catch (IOException e) {
+      System.out.println("Ошибка чтения файла: " + e.getMessage());
+    }
   }
 }
