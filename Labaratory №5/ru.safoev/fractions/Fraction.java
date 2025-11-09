@@ -8,6 +8,12 @@ public class Fraction implements FractionInterface {
   private int denominator; // Знаменатель
   private Float cachedFloatValue;
 
+  public Fraction() {
+    this.numerator = 0;
+    this.denominator = 0;
+    this.cachedFloatValue = null;
+  }
+
   public Fraction(int numerator, int denominator) {
     if (denominator == 0) {
       throw new IllegalArgumentException("Знаменатель не может быть равен 0!");
