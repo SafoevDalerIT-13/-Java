@@ -6,8 +6,8 @@ import java.util.*;
 public class FileRead {
   private Set<Character> voicedConsonants;
 
+
   public FileRead() {
-    // Инициализируем множество звонких согласных
     this.voicedConsonants = Set.of(
             'б', 'в', 'г', 'д', 'ж', 'з', 'л', 'м', 'н', 'р', 'й'
     );
