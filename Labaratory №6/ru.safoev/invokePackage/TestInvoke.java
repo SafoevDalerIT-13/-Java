@@ -1,10 +1,7 @@
 package ru.safoev.invokePackage;
 
 public class TestInvoke {
-
-    public TestInvoke() {
-    }
-
+    
     @Invoke
     public void Test1() {
         System.out.println("Вызвали public void тест под номером один!");
@@ -44,9 +41,5 @@ public class TestInvoke {
     protected static void Test8() {
         System.out.println("Вызвали protected static void тест под номером восемь!");
     }
-
-    @Override
-    public String toString() {
-        return "TestInvoke{}";
-    }
+    
 }
