@@ -3,8 +3,8 @@ package ru.safoev.invokePackage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class InvokeStartMethods {
-    public static void InvokeStart1() throws InvocationTargetException, IllegalAccessException {
+public class InvokeHandler {
+    public static void InvokeStart() throws InvocationTargetException, IllegalAccessException {
         TestInvoke testInvoke = new TestInvoke();
         Class<?> classInvoke = testInvoke.getClass();
 
