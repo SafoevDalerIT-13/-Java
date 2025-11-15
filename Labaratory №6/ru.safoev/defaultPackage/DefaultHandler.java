@@ -3,9 +3,9 @@ package ru.safoev.defaultPackage;
 import java.lang.reflect.Field;
 
 public class DefaultHandler {
-    public static void DefaultStart() {
-        TestDefault testDefault = new TestDefault();
-        Class<?> classDefault = testDefault.getClass();
+    public static void DefaultStart(Class<?> class1) {
+
+        Class<?> classDefault = class1.getClass();
 
         System.out.println("Имя класса: " + classDefault.getSimpleName());
 

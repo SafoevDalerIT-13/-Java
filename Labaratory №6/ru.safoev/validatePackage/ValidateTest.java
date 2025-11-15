@@ -1,16 +1,16 @@
 package ru.safoev.validatePackage;
 
 @Validate({String.class,Integer.class})
-public class Test1 {
+public class ValidateTest {
   private String title;
   private int duration;
 
-  public Test1() {
+  public ValidateTest() {
     this.title = null;
     this.duration = 0;
   }
 
-  public Test1(String title, int duration) {
+  public ValidateTest(String title, int duration) {
     this.title = title;
     this.duration = duration;
   }
