@@ -1,5 +1,7 @@
 package ru.safoev.mainPackage;
 
+import ru.safoev.cachePackage.CacheHandler;
+import ru.safoev.cachePackage.TestCache;
 import ru.safoev.defaultPackage.DefaultHandler;
 import ru.safoev.defaultPackage.TestDefault;
 import ru.safoev.invokePackage.InvokeHandler;
@@ -26,7 +28,9 @@ public class Main {
         // Категория 1: Задание 4
         ValidateHandler.ValidateStart(ValidateTest.class);
         // Категория 1: Задание 5
-       TwoHandler.twoStart(TwoTest.class);
+        TwoHandler.twoStart(TwoTest.class);
+        // Категория 1: Задание 6
+        CacheHandler.startCache(TestCache.class);
 
   }
 }
