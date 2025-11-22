@@ -1,4 +1,3 @@
-
 package ru.safoev.menuPackage;
 
 import ru.safoev.cachePackage.CacheHandler;
@@ -17,11 +16,29 @@ import ru.safoev.validatePackage.ValidateHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ * Класс для управления меню и валидации ввода пользователя.
+ * Предоставляет интерфейс для тестирования всех реализованных аннотаций
+ * с поддержкой ручного и автоматического ввода данных.
+ *
+ * @author DalerSafoevIT-13
+ * @version 1.0
+ * @since 2025
+ */
 public class MenuAndValidator {
 
+  /**
+   * Сканер для чтения ввода пользователя из консоли.
+   */
   private static final Scanner scanner = new Scanner(System.in);
 
-  // Способ ввода
+  /**
+   * Основное меню программы для выбора способа ввода данных.
+   * Предоставляет возможность выбора между ручным и автоматическим вводом,
+   * а также выхода из программы.
+   *
+   * @return код выхода из меню.
+   */
   public int menu() {
     while (true) {
       System.out.println("\nЗдравствуйте, это Лабораторная работа №6!");
@@ -55,7 +72,13 @@ public class MenuAndValidator {
     }
   }
 
-  // Ручной ввод
+  /**
+   * Меню для ручного ввода данных пользователем.
+   * Предоставляет выбор задания и обработку введенных данных.
+   *
+   * @param scanner сканер для чтения ввода пользователя.
+   * @return код возврата в основное меню.
+   */
   private int manualInputMenu(Scanner scanner) {
     while (true) {
       System.out.println("\n=== РУЧНОЙ ВВОД ===");
@@ -105,7 +128,12 @@ public class MenuAndValidator {
     }
   }
 
-  // Автоматический ввод
+  /**
+   * Меню для автоматического ввода данных с использованием готовых тестовых данных.
+   *
+   * @param scanner сканер для чтения ввода пользователя.
+   * @return код возврата в основное меню.
+   */
   private int autoInputMenu(Scanner scanner) {
     while (true) {
       System.out.println("\n=== АВТОМАТИЧЕСКИЙ ВВОД ===");
@@ -157,6 +185,10 @@ public class MenuAndValidator {
 
   // ========== МЕТОДЫ ДЛЯ РУЧНОГО ВВОДА ==========
 
+  /**
+   * Обработка ручного ввода для аннотации @Invoke.
+   * Создает объект TestInvoke и вызывает все методы с аннотацией @Invoke.
+   */
   private void manualInput1() {
     System.out.println("\n=== @Invoke - Ручной ввод ===");
     try {
@@ -169,6 +201,10 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Обработка ручного ввода для аннотации @Default.
+   * Запрашивает имя класса и анализирует его на наличие аннотации @Default.
+   */
   private void manualInput2() {
     System.out.println("\n=== @Default - Ручной ввод ===");
     System.out.print("Введите имя класса для проверки (TestDefault): ");
@@ -186,6 +222,11 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Обработка ручного ввода для аннотации @ToString.
+   * Запрашивает данные пользователя и создает объект Client с последующим
+   * преобразованием в строку с учетом аннотаций.
+   */
   private void manualInput3() {
     System.out.println("\n=== @ToString - Ручной ввод ===");
     System.out.print("Введите имя: ");
@@ -210,6 +251,10 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Обработка ручного ввода для аннотации @Validate.
+   * Запрашивает имя класса и проверяет его на наличие аннотации @Validate.
+   */
   private void manualInput4() {
     System.out.println("\n=== @Validate - Ручной ввод ===");
     System.out.print("Введите имя класса для валидации (ValidateTest): ");
@@ -227,6 +272,10 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Обработка ручного ввода для аннотации @Two.
+   * Запрашивает имя класса и анализирует его на наличие аннотации @Two.
+   */
   private void manualInput5() {
     System.out.println("\n=== @Two - Ручной ввод ===");
     System.out.print("Введите имя класса (TwoTest): ");
@@ -244,6 +293,10 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Обработка ручного ввода для аннотации @Cache.
+   * Запрашивает имя класса и анализирует его на наличие аннотации @Cache.
+   */
   private void manualInput6() {
     System.out.println("\n=== @Cache - Ручной ввод ===");
     System.out.print("Введите имя класса (TestCache): ");
@@ -263,6 +316,9 @@ public class MenuAndValidator {
 
   // ========== МЕТОДЫ ДЛЯ АВТОМАТИЧЕСКОГО ВВОДА ==========
 
+  /**
+   * Автоматический тест для аннотации @Invoke с готовыми данными.
+   */
   private void autoInput1() {
     System.out.println("\n=== @Invoke - Автоматический ввод ===");
     try {
@@ -275,6 +331,9 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Автоматический тест для аннотации @Default с готовыми данными.
+   */
   private void autoInput2() {
     System.out.println("\n=== @Default - Автоматический ввод ===");
     try {
@@ -285,6 +344,9 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Автоматический тест для аннотации @ToString с готовыми данными.
+   */
   private void autoInput3() {
     System.out.println("\n=== @ToString - Автоматический ввод ===");
     try {
@@ -298,6 +360,9 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Автоматический тест для аннотации @Validate с готовыми данными.
+   */
   private void autoInput4() {
     System.out.println("\n=== @Validate - Автоматический ввод ===");
     try {
@@ -308,6 +373,9 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Автоматический тест для аннотации @Two с готовыми данными.
+   */
   private void autoInput5() {
     System.out.println("\n=== @Two - Автоматический ввод ===");
     try {
@@ -318,6 +386,9 @@ public class MenuAndValidator {
     }
   }
 
+  /**
+   * Автоматический тест для аннотации @Cache с готовыми данными.
+   */
   private void autoInput6() {
     System.out.println("\n=== @Cache - Автоматический ввод ===");
     try {
@@ -327,5 +398,4 @@ public class MenuAndValidator {
       System.out.println("Ошибка: " + e.getMessage());
     }
   }
-
 }
