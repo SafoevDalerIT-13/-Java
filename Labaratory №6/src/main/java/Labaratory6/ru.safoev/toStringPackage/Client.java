@@ -1,57 +1,130 @@
 package ru.safoev.toStringPackage;
 
+/**
+ * Класс Client для демонстрации работы аннотации @ToString.
+ * Содержит поля с различными настройками аннотаций для кастомного
+ * строкового представления объекта.
+ *
+ * @author DalerSafoevIT-13
+ * @version 1.0
+ * @since 2025
+ */
 @ToString
 public class Client {
-    @ToString(ToString.Mode.YES)
-    private String name;
 
-    private int age;
+  /**
+   * Имя клиента с явным указанием включения в строковое представление.
+   */
+  @ToString(ToString.Mode.YES)
+  private String name;
 
-    @ToString(ToString.Mode.YES)
-    private String email;
+  /**
+   * Возраст клиента без явной аннотации (использует режим по умолчанию).
+   */
+  private int age;
 
-    @ToString(ToString.Mode.NO)
-    private String phone;
+  /**
+   * Email клиента с явным указанием включения в строковое представление.
+   */
+  @ToString(ToString.Mode.YES)
+  private String email;
 
-    public Client() {}
+  /**
+   * Телефон клиента с явным указанием исключения из строкового представления.
+   */
+  @ToString(ToString.Mode.NO)
+  private String phone;
 
-    public Client(String name, int age, String email, String phone) {
-        this.name = name;
-        this.age = age;
-        this.email = email;
-        this.phone = phone;
-    }
+  /**
+   * Конструктор по умолчанию.
+   * Создает объект Client с неинициализированными полями.
+   */
+  public Client() {}
 
-    public String getName() {
-        return name;
-    }
+  /**
+   * Конструктор с параметрами для инициализации всех полей объекта.
+   *
+   * @param name имя клиента
+   * @param age возраст клиента
+   * @param email email клиента
+   * @param phone телефон клиента
+   */
+  public Client(String name, int age, String email, String phone) {
+    this.name = name;
+    this.age = age;
+    this.email = email;
+    this.phone = phone;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  /**
+   * Возвращает имя клиента.
+   *
+   * @return имя клиента
+   */
+  public String getName() {
+    return name;
+  }
 
-    public int getAge() {
-        return age;
-    }
+  /**
+   * Устанавливает новое имя клиента.
+   *
+   * @param name новое имя клиента
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+  /**
+   * Возвращает возраст клиента.
+   *
+   * @return возраст клиента
+   */
+  public int getAge() {
+    return age;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  /**
+   * Устанавливает новый возраст клиента.
+   *
+   * @param age новый возраст клиента
+   */
+  public void setAge(int age) {
+    this.age = age;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  /**
+   * Возвращает email клиента.
+   *
+   * @return email клиента
+   */
+  public String getEmail() {
+    return email;
+  }
 
-    public String getPhone() {
-        return phone;
-    }
+  /**
+   * Устанавливает новый email клиента.
+   *
+   * @param email новый email клиента
+   */
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+  /**
+   * Возвращает телефон клиента.
+   *
+   * @return телефон клиента
+   */
+  public String getPhone() {
+    return phone;
+  }
 
+  /**
+   * Устанавливает новый телефон клиента.
+   *
+   * @param phone новый телефон клиента
+   */
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 }
